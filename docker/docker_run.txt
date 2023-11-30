@@ -1,0 +1,1 @@
+docker run -it -e NGROK_AUTHTOKEN=2YrEKHRWs0RX0CMTMIgmhkNXkS9_zxaSC3nGVdeX5S6QU3Sc ngrok/ngrok:latest http --domain=arguably-concise-stinkbug.ngrok-free.app host.docker.internal:8080
