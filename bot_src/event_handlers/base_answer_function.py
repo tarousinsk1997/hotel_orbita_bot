@@ -1,7 +1,9 @@
 from aiogram.types import CallbackQuery, InputMediaPhoto, BufferedInputFile, ReplyKeyboardMarkup, InlineKeyboardMarkup, ReplyKeyboardRemove, Message
-from aiogram.fsm.context import FSMContext
-from bot_init import bot
+
+from bot_src.bot_init import bot
 from database.redis_storage import redis_client
+
+
 
 async def send_edit_message_callback(callback: CallbackQuery, text:str, reply_markup:object, is_last_message:bool=True, send_mode: str='send'):
     if not is_last_message:

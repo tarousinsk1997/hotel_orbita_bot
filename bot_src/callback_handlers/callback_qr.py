@@ -2,20 +2,20 @@ from aiogram import F, types, Router
 from aiogram.types import ContentType
 import requests
 import numpy as np
-from credentials.credentials import creds
+from bot_src.credentials.credentials import creds
 
 from PIL import Image
 import cv2
 
 from qreader import QReader
 
-from state_context.state_context import QR_VALIDATION
+from bot_src.state_context.state_context import QR_VALIDATION
 
 
 QREADER = QReader(model_size = 'n', min_confidence = 0.5)
 
 router_qr = Router()
-from bot_init import bot
+from bot_src.bot_init import bot
 
 @router_qr.message(QR_VALIDATION.CHOOSE_EVENT, F.content_type.in_([ContentType.PHOTO]))
 async def qr_validation(message: types.Message):

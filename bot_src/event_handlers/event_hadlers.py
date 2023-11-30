@@ -1,13 +1,14 @@
 from aiogram import F, types, Router
 from aiogram.fsm.context import FSMContext
-from keyboards import keyboards as kb
 from aiogram.filters import Command
-from standard_answers import basic_answer_vars
-from state_context.state_context import REQUEST_CONTACT
-from API import database_api
+from bot_src.keyboards import keyboards as kb
 from aiogram.types import ContentType
 from aiogram.enums.chat_member_status import ChatMemberStatus
-from bot_init import bot
+
+from bot_src.standard_answers import basic_answer_vars
+from bot_src.state_context.state_context import REQUEST_CONTACT
+from bot_src.API import database_api
+from bot_src.bot_init import bot
 from database.redis_storage import redis_client
 
 

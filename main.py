@@ -36,7 +36,9 @@ async def on_startup(bot: Bot) -> None:
     scheduler.add_job(compare_payment_history, trigger='interval', seconds=10)
     scheduler.add_job(update_awaiting_orders_list, trigger='interval', seconds=60)
     scheduler.start()
-    await bot.set_webhook(WEBHOOK_URL)
+
+    # WEBHOOK
+    #await bot.set_webhook(WEBHOOK_URL)
 
 
 
@@ -87,22 +89,19 @@ async def main():
     await update_awaiting_orders_list()
 
 
+# WEBHOOK
 
-    app = web.Application()
-    webhook_requests_handler = SimpleRequestHandler(
-        dispatcher=dp,
-        bot=bot)
-    webhook_requests_handler.register(app, path=WEBHOOK_PATH)
-    setup_application(app, dp, bot=bot)
-
-    app.add_routes(routes)
-
-    
-    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    # app = web.Application()
+    # webhook_requests_handler = SimpleRequestHandler(
+    #     dispatcher=dp,
+    #     bot=bot)
+    # webhook_requests_handler.register(app, path=WEBHOOK_PATH)
+    # setup_application(app, dp, bot=bot)
+    # app.add_routes(routes)
+    #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 
 
-    
-    #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
 
