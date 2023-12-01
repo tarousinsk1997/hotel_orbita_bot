@@ -19,7 +19,8 @@ nest_asyncio.apply()
 
 
 from bot_src.event_handlers import event_hadlers
-from bot_src.callback_handlers import callback_club, callback_default, callback_qr
+from bot_src.callback_handlers import callback_club, callback_default, \
+                                        callback_qr
 
 fn = datetime.now().strftime('logs/test.py-%Y%m%d%H%M%S.log')
 
@@ -38,12 +39,14 @@ async def on_startup(bot: Bot) -> None:
     scheduler.start()
 
     # WEBHOOK
-    #await bot.set_webhook(WEBHOOK_URL)
+    await bot.set_webhook(WEBHOOK_URL)
 
 
 
 
-dp.include_routers(event_hadlers.router, callback_default.router_deafult, callback_club.router_club, callback_qr.router_qr)
+dp.include_routers(event_hadlers.router, callback_default.router_deafult, callback_club.router_club)
+#dp.include_router(callback_qr.router_qr)
+
 dp.startup.register(on_startup)
 
 
@@ -54,6 +57,7 @@ dp.update.middleware(Last_Message_Middleware())
 
 # Webserver settings
 # bind localhost only to prevent any external access
+#WEB_SERVER_HOST = "127.0.0.1"
 WEB_SERVER_HOST = "127.0.0.1"
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
@@ -64,7 +68,8 @@ WEBHOOK_PATH = "/webhook"
 #WEBHOOK_SECRET = "my-secret"
 # Base URL for webhook will be used to generate webhook URL for Telegram,
 # in this example it is used public address with TLS support
-BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
+#BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
+BASE_WEBHOOK_URL = "109.252.80.196"
 
 WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
 
@@ -91,17 +96,17 @@ async def main():
 
 # WEBHOOK
 
-    # app = web.Application()
-    # webhook_requests_handler = SimpleRequestHandler(
-    #     dispatcher=dp,
-    #     bot=bot)
-    # webhook_requests_handler.register(app, path=WEBHOOK_PATH)
-    # setup_application(app, dp, bot=bot)
-    # app.add_routes(routes)
-    #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    app = web.Application()
+    webhook_requests_handler = SimpleRequestHandler(
+        dispatcher=dp,
+        bot=bot)
+    webhook_requests_handler.register(app, path=WEBHOOK_PATH)
+    setup_application(app, dp, bot=bot)
+    app.add_routes(routes)
+    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 
 
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
 
