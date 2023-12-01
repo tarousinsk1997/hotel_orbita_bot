@@ -9,6 +9,7 @@ import uuid
 from bot_src.API import database_api
 import re
 import json
+import os
 from datetime import datetime
 from bot_src.keyboards import keyboards as kb
 
@@ -21,11 +22,13 @@ test_payment_mode = '1'
 
 async def vk_api_query():
 
+    VK_LOGIN = os.getenv('VK_LOGIN')
+    VK_PASSWORD = os.getenv('VK_PASSWORD')
     global gl_last_post
     gl_last_post = {}
 
-    vk_api_session = vk_api.VkApi(login = creds['vk_login'], 
-                                password=creds['vk_password'], 
+    vk_api_session = vk_api.VkApi(login =VK_LOGIN, 
+                                password=VK_PASSWORD, 
                                 auth_handler=auth_handler_vk,
                                 captcha_handler=captcha_handler_vk, 
                                 app_id=2685278)
