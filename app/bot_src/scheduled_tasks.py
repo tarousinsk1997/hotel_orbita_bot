@@ -1,17 +1,16 @@
 import vk_api
-from bot_src.credentials.credentials import creds
-from bot_src.API.vkapi import auth_handler_vk, captcha_handler_vk
-from database.redis_storage import redis_client
-from bot_src.API import yoomoney_api
-from bot_src.bot_init import bot
-from bot_src.API import OneC_api
+from app.bot_src.API.vkapi import auth_handler_vk, captcha_handler_vk
+from app.database.redis_storage import redis_client
+from app.bot_src.API import yoomoney_api
+from app.bot_src.bot_init import bot
+from app.bot_src.API import OneC_api
 import uuid
-from bot_src.API import database_api
+from app.bot_src.API import database_api
 import re
 import json
 import os
 from datetime import datetime
-from bot_src.keyboards import keyboards as kb
+from app.bot_src.keyboards import keyboards as kb
 
 
 
@@ -38,7 +37,7 @@ async def vk_api_query():
     vk_api_session.auth(token_only=True)
     vkapi_API = vk_api_session.get_api()
 
-    post_content = vkapi_API.wall.get(owner_id=creds["owner_id"],
+    post_content = vkapi_API.wall.get(owner_id=-219787522,
                         count=2,
                         filter='all',
                         )

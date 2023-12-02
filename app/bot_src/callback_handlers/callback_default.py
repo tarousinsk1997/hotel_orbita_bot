@@ -1,14 +1,14 @@
 from aiogram import F, Router
 from aiogram.types.callback_query import CallbackQuery
-from bot_src.keyboards import keyboards as kb
+from app.bot_src.keyboards import keyboards as kb
 
-from bot_src.callback_handlers.callback_classes import MyCallback_rest, MyCallback_rest_back
+from app.bot_src.callback_handlers.callback_classes import MyCallback_rest, MyCallback_rest_back
 
 
-from bot_src.event_handlers.base_answer_function import send_edit_message_callback
-from bot_src.standard_answers import basic_answer_vars
+from app.bot_src.event_handlers.base_answer_function import send_edit_message_callback
+from app.bot_src.standard_answers import basic_answer_vars
 
-from bot_src.bot_init import bot
+from app.bot_src.bot_init import bot
 
 router_deafult = Router()
 

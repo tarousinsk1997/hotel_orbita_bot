@@ -1,7 +1,7 @@
 from aiogram.types import CallbackQuery, InputMediaPhoto, BufferedInputFile, ReplyKeyboardMarkup, InlineKeyboardMarkup, ReplyKeyboardRemove, Message
 
-from bot_src.bot_init import bot
-from database.redis_storage import redis_client
+from app.bot_src.bot_init import bot
+from app.database.redis_storage import redis_client
 
 
 
@@ -41,7 +41,7 @@ async def send_edit_photo_callback(callback: CallbackQuery, media: str | InputMe
             raise  ValueError("Wrong Send mode provided")
         
     redis_key = 'last_message' + ":" + str(callback.from_user.id)
-    redis_client.set(redis_key, msg.message_id)
+    redis_client.set(redis_key, msg.message_id, ex=3600)
 
     return msg
 

@@ -1,11 +1,15 @@
 import requests
+import os
+import ssl
 
 
 format_date_str = '%Y-%m-%dT%H:%M:%S'
+PATH_TO_SSL = ""
 
 
+info_base_name = os.getenv("INFO_BASE_NAME")
 
-info_base_name = "InfoBase2"
+
 async def get_event_data():
     """
     returns JSON File from 1c
@@ -90,6 +94,17 @@ async def is_server_available():
 
     else: 
         return True
+    
+
+async def set_turnout_state(event_id: str, seat: str, state:bool):
+    
+    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot//set_turnout_state/{event_id}/{seat}/{state}")
+    if response.status_code != 200:
+        return False
+    else: 
+        return True
+    requests.get
+
 
 
 # 1019910117

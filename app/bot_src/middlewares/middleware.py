@@ -1,7 +1,7 @@
 from typing import Callable, Dict, Any, Awaitable
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Message
-from database.redis_storage import redis_client
+from app.database.redis_storage import redis_client
 
 class Last_Message_Middleware(BaseMiddleware):
     async def __call__(

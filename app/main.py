@@ -5,14 +5,14 @@ import time
 from aiohttp import web
 from datetime import datetime
 from aiogram import Dispatcher, Bot
-from app.bot_src.bot_init import bot
+from bot_src.bot_init import bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from app.bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
+from bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 import nest_asyncio
-from app.database.redis_storage import redis_storage
-from app.bot_src.scheduled_tasks import compare_payment_history, vk_api_query, update_awaiting_orders_list
-from app.bot_src.API.web_server_api import routes
+from database.redis_storage import redis_storage
+from bot_src.scheduled_tasks import compare_payment_history, vk_api_query, update_awaiting_orders_list
+from bot_src.API.web_server_api import routes
 
 
 nest_asyncio.apply()
@@ -38,12 +38,12 @@ async def on_startup(bot: Bot) -> None:
     scheduler.start()
 
     # WEBHOOK
-    await bot.set_webhook(WEBHOOK_URL)
+    #await bot.set_webhook(WEBHOOK_URL)
 
 
 
 
-dp.include_routers(event_hadlers.router, callback_default.router_deafult, callback_club.router_club, callback_qr.router_qr)
+dp.include_routers(event_hadlers.router, callback_default.router_deafult, callback_club.router_club)
 dp.startup.register(on_startup)
 
 
@@ -54,7 +54,6 @@ dp.update.middleware(Last_Message_Middleware())
 
 # Webserver settings
 # bind localhost only to prevent any external access
-#WEB_SERVER_HOST = "127.0.0.1"
 WEB_SERVER_HOST = "127.0.0.1"
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
@@ -65,8 +64,7 @@ WEBHOOK_PATH = "/webhook"
 #WEBHOOK_SECRET = "my-secret"
 # Base URL for webhook will be used to generate webhook URL for Telegram,
 # in this example it is used public address with TLS support
-#BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
-BASE_WEBHOOK_URL = "109.252.80.196"
+BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
 
 WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
 
@@ -93,20 +91,21 @@ async def main():
 
 # WEBHOOK
 
-    app = web.Application()
-    webhook_requests_handler = SimpleRequestHandler(
-        dispatcher=dp,
-        bot=bot)
-    webhook_requests_handler.register(app, path=WEBHOOK_PATH)
-    setup_application(app, dp, bot=bot)
-    app.add_routes(routes)
-    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    # app = web.Application()
+    # webhook_requests_handler = SimpleRequestHandler(
+    #     dispatcher=dp,
+    #     bot=bot)
+    # webhook_requests_handler.register(app, path=WEBHOOK_PATH)
+    # setup_application(app, dp, bot=bot)
+    # app.add_routes(routes)
+    #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
 
 
-    #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
+
     logging.getLogger('requests').setLevel(logging.WARNING)
-    logging.basicConfig(filename=os.getcwd() + '/app/database/bot_log.log', level=logging.ERROR)
+    logging.basicConfig(filename='/database/bot_log.log', level=logging.ERROR)
     asyncio.run(main())
     
