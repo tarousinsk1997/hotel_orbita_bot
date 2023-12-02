@@ -5,7 +5,7 @@ from aiogram.types import ReplyKeyboardRemove, \
 
 import locale
 
-from bot_src.callback_handlers.callback_classes import MyCallback_rest, MyCallback_jazz_club, MyCallback_event_picker_left_right_arrow, \
+from app.bot_src.callback_handlers.callback_classes import MyCallback_rest, MyCallback_jazz_club, MyCallback_event_picker_left_right_arrow, \
       MyCallback_jazz_club_back, MyCallback_event_picker_event_picked, MyCallback_event_picker_event_picked_back, \
       MyCallback_table_picker, MyCallback_rest_back, MyCallback_table_picker_confirmed, MyCallback_successfull_payment_picker_left_right_arrow, \
       MyCallback_successfull_payment_get_qr_code
