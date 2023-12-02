@@ -105,10 +105,10 @@ async def main():
 
 if __name__ == "__main__":
     logging.getLogger('requests').setLevel(logging.WARNING)
-<<<<<<<< HEAD:main.py
+
     logging.basicConfig(filename=os.getcwd() + '/app/database/bot_log.log', level=logging.ERROR)
-========
+
     logging.basicConfig(filename='/database/bot_log.log', level=logging.ERROR)
->>>>>>>> docker-env:app/main.py
+
     asyncio.run(main())
     
