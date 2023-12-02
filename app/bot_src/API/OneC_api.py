@@ -8,7 +8,7 @@ PATH_TO_SSL = ""
 
 
 info_base_name = os.getenv("INFO_BASE_NAME")
-
+info_base_host = os.getenv("INFO_BASE_HOST")
 
 async def get_event_data():
     """
@@ -23,7 +23,7 @@ async def get_event_data():
     event['event_description']
 
     """
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/get_events")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/get_events")
     if response.status_code != 200:
         return response.status_code
     
@@ -35,7 +35,7 @@ async def get_table_configuration_data(event_id):
     returns JSON File of Table configuration from 1c
     """
     
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/get_conf/{event_id}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/get_conf/{event_id}")
     if response.status_code != 200:
         return response.status_code
 
@@ -44,13 +44,13 @@ async def get_table_configuration_data(event_id):
 
 
 async def set_booking_state(event_id, table, status):
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/set_booking_status/{status}/{event_id}/{table}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/set_booking_status/{status}/{event_id}/{table}")
     return response.status_code
 
 
 async def get_event_payment_ids(event_id):
 
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/get_book_ids/{event_id}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/get_book_ids/{event_id}")
     if response.status_code != 200:
         return response.status_code
 
@@ -69,7 +69,7 @@ async def post_book_entry(event_id,
                      unique_qr_data,
                      phone_number
                      ):
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot//post_book_entry/{event_id}/{unique_payment_id}/{table_id}/{user_id}/{full_name}/{nickname}/{booking_date_time}/{amount}/{unique_qr_data}/{phone_number}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot//post_book_entry/{event_id}/{unique_payment_id}/{table_id}/{user_id}/{full_name}/{nickname}/{booking_date_time}/{amount}/{unique_qr_data}/{phone_number}")
     return response
     
 
@@ -79,7 +79,7 @@ async def post_book_entry(event_id,
 
 
 async def get_book_entry_by_id(telegram_user_id):
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/get_successful_entries/{telegram_user_id}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/get_successful_entries/{telegram_user_id}")
     if response.status_code != 200:
         return response.status_code
 
@@ -88,7 +88,7 @@ async def get_book_entry_by_id(telegram_user_id):
     
 
 async def is_server_available():
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot/server_available")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/server_available")
     if response.status_code != 200:
         return False
 
@@ -98,7 +98,7 @@ async def is_server_available():
 
 async def set_turnout_state(event_id: str, seat: str, state:bool):
     
-    response = requests.get(f"http://localhost/{info_base_name}/hs/api_telegram_bot//set_turnout_state/{event_id}/{seat}/{state}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot//set_turnout_state/{event_id}/{seat}/{state}")
     if response.status_code != 200:
         return False
     else: 

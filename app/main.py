@@ -5,21 +5,21 @@ import time
 from aiohttp import web
 from datetime import datetime
 from aiogram import Dispatcher, Bot
-from bot_src.bot_init import bot
+from app.bot_src.bot_init import bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
+from app.bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 import nest_asyncio
-from database.redis_storage import redis_storage
-from bot_src.scheduled_tasks import compare_payment_history, vk_api_query, update_awaiting_orders_list
-from bot_src.API.web_server_api import routes
+from app.database.redis_storage import redis_storage
+from app.bot_src.scheduled_tasks import compare_payment_history, vk_api_query, update_awaiting_orders_list
+from app.bot_src.API.web_server_api import routes
 
 
 nest_asyncio.apply()
 
 
-from bot_src.event_handlers import event_hadlers
-from bot_src.callback_handlers import callback_club, callback_default, callback_qr
+from app.bot_src.event_handlers import event_hadlers
+from app.bot_src.callback_handlers import callback_club, callback_default, callback_qr
 
 fn = datetime.now().strftime('logs/test.py-%Y%m%d%H%M%S.log')
 
@@ -84,7 +84,7 @@ async def print_hello():
 async def main():
 
     
-    await vk_api_query()
+    #await vk_api_query()
     await compare_payment_history()
     await update_awaiting_orders_list()
 
@@ -104,8 +104,11 @@ async def main():
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
-
     logging.getLogger('requests').setLevel(logging.WARNING)
+<<<<<<<< HEAD:main.py
+    logging.basicConfig(filename=os.getcwd() + '/app/database/bot_log.log', level=logging.ERROR)
+========
     logging.basicConfig(filename='/database/bot_log.log', level=logging.ERROR)
+>>>>>>>> docker-env:app/main.py
     asyncio.run(main())
     

@@ -1,27 +1,30 @@
 version: '3'
 services:
+
+
+  redis-storage:
+    image: redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: no
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+
+
   aiohttp:
     # Путь до Dockerfile
     build: ./app
     # Имя для создаваемого контейнера
     container_name: backend-aiohttp
     # Создание переменных окружения в контейнере
-    environment:
-      # для отладки (при запуске в релиз убрать!)
-      ## Позволяет отслеживать процесс работы приложения в командной строке
-      - PYTHONUNBUFFERED=True
-      - BOT_TOKEN = 6861178653:AAERKAeAEKQunpXfi5no85ZYrKKbxMHOUcw
-      - YM_TOKEN = 4100118439131299.DEA1C33FB092FEC77ECE535E62319496D6C667DD1C6A325E12B2E5B7B4020888D8F2338F603C19DD6C29428C83AE74707A04A389984215F559C542BD4EEF0C588031C7D2774DC528DC79EB2A8D1E72F476C3AB20C3F3A79DA94D2795E675B4A509AF9B46F73EE417C828F4E8FD5414927FE459BE21B179827BABDCA0A5288B01
-      - VK_LOGIN = +79150598207
-      - VK_PASSWORD = UeXj5f#D5YrL5*gQ
-      - VK_ACCESS_TOKEN =  vk1.a.dLI7gUdclGWcG051o5Vwo96wZe906cdSS0AUO4F6Tl4WWDSfb2RfkZrJNRz4OUiRtry2A8-2JnC6umn7rAr1fxB6geiYlgZOR3eXm4ATZkOUZtEtoKVGnB8o-wdv6-RTeeLvgHL9PMgkBF1Gw-a8psjkPSkFksl6VTsMfpMXKfigweO4EG-LuBKvJQ52D5jCVFuDDLYbkcmqi-2RG1l3Vg                  
-      - SQLITE3_PATH = /database/tgbot_database.db
-      - REDIS_URL = redis://redis-storage:6379/0
-      - INFO_BASE_NAME = InfoBase2
-      - INFO_BASE_HOST = localhost
+
+    env_file:
+      - variables.env
       ##
     # Перезапускаем сервис в случае падения 
-    restart: always
+    restart: no
     extra_hosts:
     - "host.docker.internal:host-gateway"
     # Прокладывам путь для файлов. Все файлы, которые хранятся у вас в 
@@ -33,12 +36,5 @@ services:
     # Порт, который будет смотреть наружу : порт который используется внутри контейнера
     ports:
       - "8443:8443"
-    command: python main.py
+    command: python -u main.py
 
-  redis-storage:
-    image: redis:latest
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    restart: always
-    ports:
-      - "6379:6379"

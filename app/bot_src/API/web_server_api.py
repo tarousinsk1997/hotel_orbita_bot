@@ -12,3 +12,10 @@ async def get_awaiting_orders_request(request):
     data = await get_awaiting_orders()
     data_json = json.dumps(data)
     return web.json_response(data_json, status=200)
+
+
+@routes.get('/')
+async def get_awaiting_orders_request(request):
+    data = await get_awaiting_orders()
+    data_json = json.dumps(data)
+    return web.json_response("Hello World", status=200)

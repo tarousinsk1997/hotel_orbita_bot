@@ -1,12 +1,10 @@
 import sqlite3
 from datetime import datetime, timedelta
-from app.bot_src.API import OneC_api
+from bot_src.API import OneC_api
 from aiogram.exceptions import TelegramBadRequest
-from app.bot_src.bot_init import bot
+from bot_src.bot_init import bot
 import os
-
-#SQLITE3_PATH = os.getenv('SQLITE3_PATH')
-SQLITE3_PATH = r"D:\Python Projects\hotel_orbita_bot\app\database\tgbot_database.db"
+SQLITE3_PATH = os.getenv('SQLITE3_PATH')
 db_connection = sqlite3.connect(SQLITE3_PATH)
 # cursor = connection.cursor()
 
