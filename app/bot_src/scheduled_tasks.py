@@ -1,16 +1,17 @@
-import vk_api
-from app.bot_src.API.vkapi import auth_handler_vk, captcha_handler_vk
-from app.database.redis_storage import redis_client
-from app.bot_src.API import yoomoney_api
-from app.bot_src.bot_init import bot
-from app.bot_src.API import OneC_api
+#import vk_api
+from bot_src.API.vkapi import auth_handler_vk, captcha_handler_vk
+from database.redis_storage import redis_client
+from bot_src.API import yoomoney_api
+from bot_src.bot_init import bot
+from bot_src.API import OneC_api
 import uuid
-from app.bot_src.API import database_api
+from bot_src.API import database_api
 import re
 import json
 import os
 from datetime import datetime
-from app.bot_src.keyboards import keyboards as kb
+from bot_src.keyboards import keyboards as kb
+
 
 
 

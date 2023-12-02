@@ -84,7 +84,7 @@ async def print_hello():
 async def main():
 
     
-    await vk_api_query()
+    #await vk_api_query()
     await compare_payment_history()
     await update_awaiting_orders_list()
 

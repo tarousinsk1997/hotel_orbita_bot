@@ -1,7 +1,7 @@
 from aiogram.types import CallbackQuery, InputMediaPhoto, BufferedInputFile, ReplyKeyboardMarkup, InlineKeyboardMarkup, ReplyKeyboardRemove, Message
 
-from app.bot_src.bot_init import bot
-from app.database.redis_storage import redis_client
+from bot_src.bot_init import bot
+from database.redis_storage import redis_client
 
 
 
