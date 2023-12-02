@@ -6,29 +6,29 @@ from aiogram.exceptions import TelegramBadRequest
 import qrcode
 import io
 from datetime import datetime
-from app.bot_src import misc
+from bot_src import misc
 from yoomoney import Quickpay
 
 from natsort import natsorted
-from app.bot_src.state_context.state_context import CHECK_BOOK_ENTRY, BOOKING_TICKET_CLUB
-from app.bot_src.standard_answers import basic_answer_vars
-from app.bot_src.scheduled_tasks import update_awaiting_orders_list
-from app.bot_src.API import database_api
-from app.bot_src.API import OneC_api
-from app.bot_src.keyboards import keyboards as kb
+from bot_src.state_context.state_context import CHECK_BOOK_ENTRY, BOOKING_TICKET_CLUB
+from bot_src.standard_answers import basic_answer_vars
+from bot_src.scheduled_tasks import update_awaiting_orders_list
+from bot_src.API import database_api
+from bot_src.API import OneC_api
+from bot_src.keyboards import keyboards as kb
 
 
-from app.bot_src.callback_handlers.callback_classes import  MyCallback_jazz_club, MyCallback_event_picker_left_right_arrow, \
+from bot_src.callback_handlers.callback_classes import  MyCallback_jazz_club, MyCallback_event_picker_left_right_arrow, \
       MyCallback_jazz_club_back, MyCallback_event_picker_event_picked, MyCallback_event_picker_event_picked_back, \
       MyCallback_table_picker,  MyCallback_table_picker_confirmed, MyCallback_successfull_payment_picker_left_right_arrow, \
       MyCallback_successfull_payment_get_qr_code
 
-from app.bot_src.event_handlers.base_answer_function import send_edit_message_callback, send_edit_photo_callback
+from bot_src.event_handlers.base_answer_function import send_edit_message_callback, send_edit_photo_callback
 
 
 
 router_club = Router()
-from app.bot_src.bot_init import bot
+from bot_src.bot_init import bot
 
 
 test_payment_mode = '1'

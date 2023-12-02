@@ -1,4 +1,4 @@
-#import vk_api
+import vk_api
 from bot_src.API.vkapi import auth_handler_vk, captcha_handler_vk
 from database.redis_storage import redis_client
 from bot_src.API import yoomoney_api

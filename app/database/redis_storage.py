@@ -3,10 +3,9 @@ from redis import Redis
 import os
 
 
-REDIS_URL = os.getenv('REDIS_URL')
-
-#redis_storage = RedisStorage.from_url(REDIS_URL, state_ttl=3600, data_ttl=30)
-redis_client = Redis(host='redis-storage')
+REDIS_URL = 'redis://localhost:6379/0'
+redis_storage = RedisStorage.from_url(REDIS_URL, state_ttl=3600, data_ttl=30)
+redis_client = Redis()
 redis_storage = RedisStorage(redis_client)
 
 

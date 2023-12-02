@@ -1,5 +1,5 @@
 from aiohttp import web
-from app.bot_src.API.database_api import get_awaiting_orders
+from bot_src.API.database_api import get_awaiting_orders
 import json
 
 

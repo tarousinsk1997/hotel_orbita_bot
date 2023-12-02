@@ -7,8 +7,11 @@ format_date_str = '%Y-%m-%dT%H:%M:%S'
 PATH_TO_SSL = ""
 
 
-info_base_name = os.getenv("INFO_BASE_NAME")
-info_base_host = os.getenv("INFO_BASE_HOST")
+#info_base_name = os.getenv("INFO_BASE_NAME")
+#info_base_host = os.getenv("INFO_BASE_HOST")
+
+info_base_name = 'InfoBase2'
+info_base_host = 'http://localhost:80'
 
 async def get_event_data():
     """
