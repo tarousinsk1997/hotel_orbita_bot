@@ -18,8 +18,8 @@ from app.bot_src.API.web_server_api import routes
 nest_asyncio.apply()
 
 
-from bot_src.event_handlers import event_hadlers
-from bot_src.callback_handlers import callback_club, callback_default, callback_qr
+from app.bot_src.event_handlers import event_hadlers
+from app.bot_src.callback_handlers import callback_club, callback_default, callback_qr
 
 fn = datetime.now().strftime('logs/test.py-%Y%m%d%H%M%S.log')
 
