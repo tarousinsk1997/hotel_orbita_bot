@@ -8,5 +8,8 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
+COPY /etc/ssl/PRIVATE.key /app
+COPY /etc/ssl/PUBLIC.pem /app
+
 EXPOSE 8443
 

@@ -34,7 +34,8 @@ dp = Dispatcher(storage=redis_storage)
 
 # Webserver settings
 # bind localhost only to prevent any external access
-WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
+WEB_SERVER_HOST = "0.0.0.0"
+#WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
 
@@ -55,10 +56,6 @@ WEBHOOK_SSL_PRIV = os.getenv('WEBHOOK_SSL_PRIV')
 
 
 
-
-
-
-
 async def on_startup(bot: Bot) -> None:
     # If you have a self-signed SSL certificate, then you will need to send a public
     # certificate to Telegram
@@ -73,8 +70,6 @@ async def on_startup(bot: Bot) -> None:
     await bot.set_webhook(WEBHOOK_URL, 
                           certificate=FSInputFile(WEBHOOK_SSL_CERT),
                           )
-
-
 
 
 
