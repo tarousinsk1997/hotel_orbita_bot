@@ -31,13 +31,6 @@ dp = Dispatcher(storage=redis_storage)
 
 
 
-
-
-
-
-
-
-
 # Webserver settings
 # bind localhost only to prevent any external access
 WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
