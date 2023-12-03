@@ -34,8 +34,8 @@ dp = Dispatcher(storage=redis_storage)
 
 # Webserver settings
 # bind localhost only to prevent any external access
-WEB_SERVER_HOST = "0.0.0.0"
-#WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
+WEB_SERVER_HOST = "127.0.0.1"
+WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
 
@@ -68,7 +68,7 @@ async def on_startup(bot: Bot) -> None:
 
     # WEBHOOK
     await bot.set_webhook(WEBHOOK_URL, 
-                          certificate=FSInputFile(WEBHOOK_SSL_CERT),
+                          #certificate=FSInputFile(WEBHOOK_SSL_CERT),
                           )
 
 
@@ -99,12 +99,14 @@ async def main():
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
 
-    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    context.load_cert_chain(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV)
+    # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+    # context.load_cert_chain(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV)
 
 
     app.add_routes(routes)
-    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT, ssl_context=context)
+    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT, 
+                #ssl_context=context
+                )
 
 
     #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
