@@ -2,11 +2,12 @@ import asyncio
 import logging
 import os
 import sys
+import ssl
 import time
 from aiohttp import web
 from datetime import datetime
 from aiogram import Dispatcher, Bot
-from aiogram.types import InputFile
+from aiogram.types import FSInputFile
 from bot_src.bot_init import bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
@@ -70,7 +71,7 @@ async def on_startup(bot: Bot) -> None:
 
     # WEBHOOK
     await bot.set_webhook(WEBHOOK_URL, 
-                          certificate=InputFile(WEBHOOK_SSL_CERT),
+                          certificate=FSInputFile(WEBHOOK_SSL_CERT),
                           )
 
 
@@ -102,8 +103,13 @@ async def main():
         bot=bot)
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
+
+    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+    context.load_cert_chain(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV)
+
+
     app.add_routes(routes)
-    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+    web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT, ssl_context=context)
 
 
     #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
