@@ -1,10 +1,13 @@
 import asyncio
 import logging
 import os
+import ssl
 import time
+import sys
 from aiohttp import web
 from datetime import datetime
 from aiogram import Dispatcher, Bot
+from aiogram.types import FSInputFile
 from bot_src.bot_init import bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from bot_src.middlewares.middleware import Last_Message_Middleware, My_MiddleWare
@@ -38,7 +41,7 @@ async def on_startup(bot: Bot) -> None:
     scheduler.start()
 
     # WEBHOOK
-    #await bot.set_webhook(WEBHOOK_URL)
+    #await bot.set_webhook(WEBHOOK_URL, certificate=FSInputFile(WEBHOOK_SSL_CERT))
 
 
 
@@ -64,13 +67,14 @@ WEBHOOK_PATH = "/webhook"
 #WEBHOOK_SECRET = "my-secret"
 # Base URL for webhook will be used to generate webhook URL for Telegram,
 # in this example it is used public address with TLS support
-BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
-
+#BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
+BASE_WEBHOOK_URL = "tarousinsk1997.duckdns.org"
 WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
 
 # Path to SSL certificate and private key for self-signed certificate.
-# WEBHOOK_SSL_CERT = "/path/to/cert.pem"
-# WEBHOOK_SSL_PRIV = "/path/to/private.key"
+cdir = os.getcwd()
+WEBHOOK_SSL_CERT = os.path.join(cdir, "app/YOURPUBLIC.pem")
+WEBHOOK_SSL_PRIV = os.path.join(cdir, "app/YOURPRIVATE.key")
 
 
 
@@ -98,17 +102,24 @@ async def main():
     # webhook_requests_handler.register(app, path=WEBHOOK_PATH)
     # setup_application(app, dp, bot=bot)
     # app.add_routes(routes)
-    #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT)
+
+    #     # Generate SSL context
+    # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+    # context.load_cert_chain(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV)
 
 
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT, ssl_context=context)
+
+
+    #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
-    logging.getLogger('requests').setLevel(logging.WARNING)
+    logging.getLogger('requests').setLevel(logging.INFO)
 
-    logging.basicConfig(filename=os.getcwd() + '/app/database/bot_log.log', level=logging.ERROR)
-
-    logging.basicConfig(filename='/database/bot_log.log', level=logging.ERROR)
+    logging.basicConfig(
+        #filename=os.getcwd() + '/app/database/bot_log.log',
+         stream=sys.stdout,
+          level=logging.DEBUG)
 
     asyncio.run(main())
     
