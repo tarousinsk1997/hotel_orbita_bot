@@ -32,6 +32,8 @@ services:
     volumes:
       - ./database/tgbot_database.db:/database
       - ./database/bot_log.log:/database
+      - /etc/ssl/PRIVATE.key /app
+      - /etc/ssl/PUBLIC.pem /app
 
     # Открываем порт в контейнер
     # Порт, который будет смотреть наружу : порт который используется внутри контейнера
