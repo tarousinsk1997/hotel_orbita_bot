@@ -14,13 +14,6 @@ services:
     # expose:
     #   - "6379"
 
-  frps:
-    build: ./frp-server
-    container_name:  frp-server
-    restart: always
-    networks:
-      - proxy_network
-
   aiohttp:
     # Путь до Dockerfile
     build: ./app
@@ -47,8 +40,7 @@ services:
     depends_on: 
       redis-storage:
         condition: service_started
-      frps:
-        condition: service_started
+  
     command: python -u main.py
     networks:
       - proxy_network
