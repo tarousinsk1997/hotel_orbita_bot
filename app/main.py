@@ -35,7 +35,7 @@ dp = Dispatcher(storage=redis_storage)
 # Webserver settings
 # bind localhost only to prevent any external access
 WEB_SERVER_HOST = "127.0.0.1"
-WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
+#WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
 
@@ -51,8 +51,8 @@ BASE_WEBHOOK_URL = os.getenv('BASE_WEBHOOK_URL')
 WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
 
 # Path to SSL certificate and private key for self-signed certificate.
-WEBHOOK_SSL_CERT = os.getenv('WEBHOOK_SSL_CERT')
-WEBHOOK_SSL_PRIV = os.getenv('WEBHOOK_SSL_PRIV')
+#WEBHOOK_SSL_CERT = os.getenv('WEBHOOK_SSL_CERT')
+#WEBHOOK_SSL_PRIV = os.getenv('WEBHOOK_SSL_PRIV')
 
 
 
