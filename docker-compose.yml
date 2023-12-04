@@ -32,12 +32,33 @@ services:
     volumes:
       - ./database/tgbot_database.db:/database
       - ./database/bot_log.log:/database
-      - /etc/ssl/PRIVATE.key /app
-      - /etc/ssl/PUBLIC.pem /app
-
     # Открываем порт в контейнер
     # Порт, который будет смотреть наружу : порт который используется внутри контейнера
     ports:
       - "8443:8443"
     command: python -u main.py
+
+
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+  frps:
+    build: ./frp-server
+    container_name: frp-server
+    restart: no
+    ports:
+      - "7000:7000"
+    expose:
+      - "7000"
+
+
+  
 
