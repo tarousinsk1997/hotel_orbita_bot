@@ -6,35 +6,21 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
-    restart: no
-    depends_on: 
-      - nginx
+    restart: always
+    networks:
+      - proxy_net
     # ports:
     #   - "6379:6379"
     # expose:
     #   - "6379"
 
 
-  nginx:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-
   frps:
     build: ./frp-server
-    container_name: frp-server
-    restart: no
-
-    # ports:
-    #   - "7000:7000"
-    # expose:
-    #   - "7000"
+    container_name:  frp-server
+    restart: always
+    networks:
+      - proxy_net
 
 
 
@@ -62,10 +48,16 @@ services:
     # ports:
     #   - "8443:8443"
     depends_on: 
-      - nginx
-      - redis-storage
-      - frps
+      redis-storage:
+        condition: service_started
+      frps:
+        condition: service_started
     command: python -u main.py
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
 
 
 
