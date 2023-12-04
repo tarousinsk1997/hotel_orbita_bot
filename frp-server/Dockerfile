@@ -7,6 +7,10 @@ WORKDIR /opt/frp
 
 ADD ${FRP_URL} /opt/frp/
 
-COPY ./frps.toml /opt/frp/frp_${FRP_VERSION}_linux_amd64
+RUN tar xzf /opt/frp/frp_${FRP_VERSION}_linux_amd64.tar.gz
+
+RUN rm -r frp_${FRP_VERSION}_linux_amd64.tar.gz
+
+COPY ./frps.toml /opt/frp/frp_${FRP_VERSION}_linux_amd64/frps.toml
 
 CMD ["/opt/frp/frp_0.52.3_linux_amd64/frps", "-c", "/opt/frp/frp_0.52.3_linux_amd64/frps.toml"]
