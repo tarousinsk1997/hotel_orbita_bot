@@ -31,9 +31,6 @@ services:
     container_name: frp-server
     restart: no
 
-    depends_on: 
-      - nginx
-
     # ports:
     #   - "7000:7000"
     # expose:
@@ -66,7 +63,7 @@ services:
     #   - "8443:8443"
     depends_on: 
       - nginx
-      - redis
+      - redis-storage
       - frps
     command: python -u main.py
 
