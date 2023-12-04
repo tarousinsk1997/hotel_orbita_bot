@@ -5,9 +5,8 @@ ENV FRP_URL=https://github.com/fatedier/frp/releases/download/v${FRP_VERSION}/fr
 
 WORKDIR /opt/frp
 
-ADD ${FRP_URL} /tmp/frp.tar.gz
-RUN tar --strip 1 -xvzf /tmp/frp.tar.gz -C /opt/frp && rm /tmp/frp.tar.gz
+ADD ${FRP_URL} /opt/frp/
 
-ADD ./frps.toml /opt/frp/frps
+COPY ./frps.toml /opt/frp/frp_${FRP_VERSION}_linux_amd64
 
-CMD ["/opt/frp/frps", "-c", "/opt/frp/frps.toml"]
+CMD ["/opt/frp/frp_0.52.3_linux_amd64/frps", "-c", "/opt/frp/frp_0.52.3_linux_amd64/frps.toml"]
