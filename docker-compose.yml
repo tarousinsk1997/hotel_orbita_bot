@@ -8,21 +8,18 @@ services:
     command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
     restart: always
     networks:
-      - proxy_net
+      - proxy_network
     # ports:
     #   - "6379:6379"
     # expose:
     #   - "6379"
-
 
   frps:
     build: ./frp-server
     container_name:  frp-server
     restart: always
     networks:
-      - proxy_net
-
-
+      - proxy_network
 
   aiohttp:
     # Путь до Dockerfile
@@ -54,10 +51,15 @@ services:
         condition: service_started
     command: python -u main.py
     networks:
-      - proxy_net
+      - proxy_network
 
 networks:
-  proxy_net:
+  proxy_network:
+    name:
+      -proxy_net
+    external: true
+      
+
 
 
 
