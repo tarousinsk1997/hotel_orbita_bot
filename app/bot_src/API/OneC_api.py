@@ -73,7 +73,7 @@ async def post_book_entry(event_id,
                      unique_qr_data,
                      phone_number
                      ):
-    response = s.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot//post_book_entry/{event_id}/{unique_payment_id}/{table_id}/{user_id}/{full_name}/{nickname}/{booking_date_time}/{amount}/{unique_qr_data}/{phone_number}")
+    response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot//post_book_entry/{event_id}/{unique_payment_id}/{table_id}/{user_id}/{full_name}/{nickname}/{booking_date_time}/{amount}/{unique_qr_data}/{phone_number}")
     return response
     
 
@@ -93,6 +93,7 @@ async def get_book_entry_by_id(telegram_user_id):
 
 async def is_server_available():
     response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/server_available")
+    print(f"ОШИБКА {response.status_code}")
     if response.status_code != 200:
         return False
 
