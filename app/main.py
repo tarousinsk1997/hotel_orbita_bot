@@ -32,7 +32,7 @@ dp = Dispatcher(storage=redis_storage)
 
 # Webserver settings
 # bind localhost only to prevent any external access
-WEB_SERVER_HOST = "127.0.0.1"
+WEB_SERVER_HOST = "backend-aiohttp"
 #WEB_SERVER_HOST = os.getenv('DOCKER_LOCAL_HOST')
 # Port for incoming request from reverse proxy. Should be any available port
 WEB_SERVER_PORT = 8443
