@@ -106,8 +106,8 @@ if __name__ == "__main__":
 
     logging.getLogger('requests').setLevel(logging.WARNING)
     logging.basicConfig(
-                        stream=sys.stdout,
-                        #filename='/database/bot_log.log',  
-                        level=logging.DEBUG)
+                        #stream=sys.stdout,
+                        filename='/database/bot_log.log',  
+                        level=logging.CRITICAL)
     asyncio.run(main())
     
