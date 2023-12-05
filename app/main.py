@@ -30,8 +30,6 @@ fn = datetime.now().strftime('logs/test.py-%Y%m%d%H%M%S.log')
 dp = Dispatcher(storage=redis_storage)
 
 
-
-
 # Webserver settings
 # bind localhost only to prevent any external access
 WEB_SERVER_HOST = "127.0.0.1"

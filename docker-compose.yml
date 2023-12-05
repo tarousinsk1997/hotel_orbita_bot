@@ -9,10 +9,8 @@ services:
     restart: always
     networks:
       - proxy_network
-    # ports:
-    #   - "6379:6379"
-    # expose:
-    #   - "6379"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   aiohttp:
     # Путь до Dockerfile
@@ -35,8 +33,8 @@ services:
       - ./database/bot_log.log:/database
     # Открываем порт в контейнер
     # Порт, который будет смотреть наружу : порт который используется внутри контейнера
-    # ports:
-    #   - "8443:8443"
+    ports:
+      - "8443:8443"
     depends_on: 
       redis-storage:
         condition: service_started
