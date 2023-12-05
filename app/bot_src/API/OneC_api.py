@@ -3,11 +3,10 @@ import os
 import ssl
 
 
-headers= {""}
 
 
 s = requests.Session()
-s.headers.update({'x-from-where': "frp"})
+
 
 format_date_str = '%Y-%m-%dT%H:%M:%S'
 
