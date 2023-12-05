@@ -55,27 +55,8 @@ dp.update.middleware(Last_Message_Middleware())
 
 
 
-# Webserver settings
-# bind localhost only to prevent any external access
-WEB_SERVER_HOST = "127.0.0.1"
-# Port for incoming request from reverse proxy. Should be any available port
-WEB_SERVER_PORT = 8443
 
-# Path to webhook route, on which Telegram will send requests
-WEBHOOK_PATH = "/webhook"
-# Secret key to validate requests from Telegram (optional)
-#WEBHOOK_SECRET = "my-secret"
-# Base URL for webhook will be used to generate webhook URL for Telegram,
-# in this example it is used public address with TLS support
-#BASE_WEBHOOK_URL = "https://arguably-concise-stinkbug.ngrok-free.app"
-BASE_WEBHOOK_URL = "tarousinsk1997.duckdns.org"
-WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
-
-# Path to SSL certificate and private key for self-signed certificate.
 cdir = os.getcwd()
-WEBHOOK_SSL_CERT = os.path.join(cdir, "app/YOURPUBLIC.pem")
-WEBHOOK_SSL_PRIV = os.path.join(cdir, "app/YOURPRIVATE.key")
-
 
 
 
@@ -111,7 +92,7 @@ async def main():
     #web.run_app(app, host=WEB_SERVER_HOST, port=WEB_SERVER_PORT, ssl_context=context)
 
 
-    #await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
 if __name__ == "__main__":
     logging.getLogger('requests').setLevel(logging.INFO)
