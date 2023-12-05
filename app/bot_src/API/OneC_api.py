@@ -93,7 +93,6 @@ async def get_book_entry_by_id(telegram_user_id):
 
 async def is_server_available():
     response = requests.get(f"{info_base_host}/{info_base_name}/hs/api_telegram_bot/server_available")
-    print(f"ОШИБКА {response.status_code}")
     if response.status_code != 200:
         return False
 
