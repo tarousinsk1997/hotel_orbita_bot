@@ -771,14 +771,14 @@ async def show_qr_code_to_user(callback: CallbackQuery, state: FSMContext, is_la
     except KeyError:
         payment_data = await OneC_api.get_book_entry_by_id(callback.from_user.id)
 
-        await state.get_data({'payment_data': payment_data}, ex=30)
+        await state.update_data({'payment_data': payment_data})
 
     
     operation = [oper for oper in payment_data if oper['event_id'] == event_id and oper['order_id']== order_id][0]
 
     img = qrcode.make(QR_str)
     buf = io.BytesIO()
-    img.save(buf, format='JPEG')
+    img.save(buf)
     byte_im = buf.getvalue()
 
 
