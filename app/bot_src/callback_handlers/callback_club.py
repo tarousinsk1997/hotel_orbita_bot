@@ -77,7 +77,7 @@ async def show_successful_payments_list(callback, state, is_last_message):
     seat = operation_to_pick['table'].replace("_", " ")
     QR_code = operation_to_pick['QR']
 
-    await state.update_data({'current_operation_index': current_operation_index}, )
+    await state.update_data({'current_operation_index': current_operation_index})
 
     await send_edit_message_callback(callback, 
                                      f'''Оплаченный ордер:\n# order {event_id}:{order_id}\n\n\n{event_name}\n\n\nДата и время проведения:
@@ -771,7 +771,7 @@ async def show_qr_code_to_user(callback: CallbackQuery, state: FSMContext, is_la
     except KeyError:
         payment_data = await OneC_api.get_book_entry_by_id(callback.from_user.id)
 
-        await state.update_data({'payment_data': payment_data}, ex=30)
+        await state.update_data({'payment_data': payment_data})
 
     
     operation = [oper for oper in payment_data if oper['event_id'] == event_id and oper['order_id']== order_id][0]
