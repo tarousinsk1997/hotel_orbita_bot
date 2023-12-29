@@ -4,7 +4,7 @@ from bot_src.API import OneC_api
 from aiogram.exceptions import TelegramBadRequest
 from bot_src.bot_init import bot
 import os
-SQLITE3_PATH = r"D:\Python Projects\hotel_orbita_bot\app\database\tgbot_database.db"
+SQLITE3_PATH = os.environ['SQLITE3_PATH']
 db_connection = sqlite3.connect(SQLITE3_PATH)
 # cursor = connection.cursor()
 

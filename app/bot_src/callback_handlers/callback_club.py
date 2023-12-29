@@ -8,6 +8,7 @@ import io
 from datetime import datetime
 from bot_src import misc
 from yoomoney import Quickpay
+from uuid import uuid4
 
 from natsort import natsorted
 from bot_src.state_context.state_context import CHECK_BOOK_ENTRY, BOOKING_TICKET_CLUB
@@ -626,8 +627,12 @@ async def send_order(callback: CallbackQuery, state: FSMContext, is_last_message
                 continue
             else:
                 break
-
+        
+        
+        # РЕДАКТУРА order_id = guid
         unique_order_label = event_id + ":" + seat + ":" + unique_payment_id + ":" + str(callback.from_user.id) + ":" + test_payment_mode
+        
+        unique_order_label = str(uuid4())
 
         seat_text = seat.replace("_", " ")
 
