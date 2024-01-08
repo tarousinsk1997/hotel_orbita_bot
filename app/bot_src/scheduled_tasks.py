@@ -94,6 +94,8 @@ async def compare_payment_history() -> None:
                 booking_date_time = history_operations_target[operation]['datetime']
                 amount = history_operations_target[operation]['amount']
                 unique_qr_data = str(uuid.uuid4())
+                
+                # РЕДАКТУРА order_id = guid
                 order_id = event_id + ":" + unique_payment_id
 
                 phone_number = await database_api.get_phone_number(user_id)
