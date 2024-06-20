@@ -1,14 +1,14 @@
 version: '3.8'
 services:
 
-  redis-storage:
-    image: redis:latest
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
-    restart: always
-    networks:
-      - proxy_network
+  #redis-storage:
+   # image: redis:latest
+    #environment:
+     # - ALLOW_EMPTY_PASSWORD=yes
+    #command: ["redis-server", "--appendonly", "no", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
+    #restart: always
+    #networks:
+    #  - proxy_network
     # extra_hosts:
     #   - "host.docker.internal:host-gateway"
 
